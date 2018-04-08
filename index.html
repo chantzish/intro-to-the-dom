@@ -9,17 +9,76 @@
     </head>
     <body>
         <div id="container"></div>
+        <p id="strange-p">bla bla bla</p>
+        <p id="strange-p2"></p>
+        <ul id="special-list">
+            <li>first item</li>
+        </ul>
+        <!-- Attributes -->
 
         <script>
+            // add paragraph to container
         var para = document.createElement("p");
         var elem = document.getElementById("container");
         elem.appendChild(para);
         var textnode = document.createTextNode("Hello world!");
         para.appendChild(textnode);
+        // add botton to container
         var bttn = document.createElement("button");
         textnode = document.createTextNode("click me!");
         bttn.appendChild(textnode);
         elem.appendChild(bttn);
+        // document.getElementById('btn')
+        bttn.onclick = function() {
+            console.log(this);
+        };
+        // change on hover
+        var strp = document.getElementById("strange-p");
+        strp.onmouseover = function(){
+            this.firstChild.nodeValue = "new bla";
+        };
+        strp.onmouseleave = function(){
+            this.firstChild.nodeValue = "bla bla bla";
+        };
+        // change on hover 2
+        var strp = document.getElementById("strange-p2");
+        var first = document.createTextNode("first");
+        var second = document.createTextNode("second");
+        strp.appendChild(first);
+        strp.onmouseover = function(){
+            this.removeChild(first);
+            this.appendChild(second);
+        };
+        strp.onmouseleave = function(){
+            this.removeChild(second);
+            this.appendChild(first);
+        };
+
+        // add to list on click
+        var list = document.getElementById("special-list");
+        list.onclick = function(){
+            this.appendChild(document.createElement("li")).appendChild(document.createTextNode("another item"));
+        };
+
+        /* Attributes */
+
+        var anch = document.body.appendChild(document.createElement("a"));
+        anch.appendChild(document.createTextNode("Elevation's Website"));
+        var attr = document.createAttribute("href");
+        attr.value="http://www.elevationacademy.co";
+        anch.attributes.setNamedItem(attr);
+        anch.style.backgroundColor = "aqua";
+        document.body.appendChild(document.createElement("br"));
+
+        // two state button
+        var but
+        (but = document.body.appendChild(document.createElement("button"))).appendChild(document.createTextNode("state one"));
+        but.setAttribute("switch","state two");
+        but.onclick = function(){
+            var temp=this.attributes["switch"].value;
+            this.attributes["switch"].value = this.firstChild.nodeValue;
+            this.innerText = temp;
+        }
         </script>
     </body>
 </html>
